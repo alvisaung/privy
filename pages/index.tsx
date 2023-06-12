@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.scss";
 
 import Button from "@mui/material/Button";
+
 import NavBar from "@/components/NavBar";
 import { useEffect } from "react";
 
