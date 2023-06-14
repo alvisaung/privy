@@ -1,6 +1,7 @@
 import { Snackbar, Alert } from "@mui/material";
 
-import React, { createContext, useState } from "react";
+import React, { FC, createContext, useState } from "react";
+import { ProviderProps } from "./AuthProvider";
 
 export const enum SnackType {
   "error" = "error",
@@ -13,7 +14,7 @@ export const SnackBarContext = createContext({
   showSnackbar: (message: string, severity?: SnackType) => {},
 });
 
-export const SnackBarProvider = ({ children }: { children: React.ReactNode }) => {
+export const SnackBarProvider: FC<ProviderProps> = ({ children }) => {
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: SnackType.success });
   const { open, message, severity } = snackbar;
 

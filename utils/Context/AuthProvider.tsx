@@ -1,5 +1,5 @@
 import { ChefUser, User } from "@/services/types/general";
-import React, { SetStateAction, createContext, useState } from "react";
+import React, { FC, SetStateAction, createContext, useState } from "react";
 
 interface UserContext {
   user: null | ChefUser;
@@ -8,7 +8,11 @@ interface UserContext {
 
 export const AuthContext = createContext<UserContext>({ user: null, setUser: (user) => {} });
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export interface ProviderProps {
+  children: React.ReactNode;
+}
+
+export const AuthProvider: FC<ProviderProps> = ({ children }) => {
   const [user, setUser] = useState<null | ChefUser>(null);
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
