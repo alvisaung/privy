@@ -14,7 +14,7 @@ const initialFormState: MenuData = {
   is_public: false,
 };
 
-export const MenuFormContext = createContext({ menuForm: initialFormState, setMenuForm: (menu) => {} });
+export const MenuFormContext = createContext({ menuForm: initialFormState, setMenuForm: (menu: MenuData) => {} });
 
 export const MenuFormProvider = ({ children }: { children: ReactNode }) => {
   const [menuForm, setMenuForm] = useState(initialFormState);

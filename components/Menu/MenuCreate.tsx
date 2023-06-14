@@ -35,10 +35,10 @@ const MenuCreate: FC<MenuCreateProps> = ({ edit, editFormData }) => {
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
-    setMenuForm((prevFormData) => ({
-      ...prevFormData,
+    setMenuForm({
+      ...menuForm,
       [event.target.name as string]: event.target.value,
-    }));
+    });
   };
 
   const uploadMenuImg = async () => {

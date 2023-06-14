@@ -3,6 +3,7 @@ import MenuImgUpload from "../MenuImgUpload";
 import { Box, Button, Chip, TextField, Typography } from "@mui/material";
 import { MenuFormContext } from "@/utils/Context/MenuProvider";
 import SnackBarContext, { SnackType } from "@/utils/Context/SnackBarProvider";
+import { MenuPic } from "@/services/types/general";
 
 interface Step2 {
   handleInputChange: (event: any) => void;
