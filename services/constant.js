@@ -2,3 +2,4 @@ const api_url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:5001" 
 module.exports = {
   api_url,
 };
+// /var/www/viabells/email.viabells.com/wp-content/plugins/xmoze-helper/widgets
