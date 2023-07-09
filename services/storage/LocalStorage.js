@@ -13,7 +13,7 @@ const LocalStorage = (function () {
     return localStorage.getItem("access_token");
   }
 
-  function _getUser() {
+  function _getUser(type) {
     return JSON.parse(localStorage.getItem("user"));
   }
 

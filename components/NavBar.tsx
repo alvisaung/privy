@@ -27,12 +27,13 @@ const NavBar = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-    !Hp.containsWordFromArray(router.pathname, BeforeAuthRoute) && fetchUser();
+    // !Hp.containsWordFromArray(router.pathname, BeforeAuthRoute) &&
+    fetchUser();
   }, []);
 
   const fetchUser = async () => {
-    const profile = await ChefApiService.GetProfile();
-    setUser(profile);
+    const userAuth = await LocalStorage.getUser("chef");
+    setUser(userAuth);
   };
 
   const handleLoginClose = (event: MouseEvent<HTMLElement>) => {

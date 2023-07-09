@@ -1,10 +1,12 @@
 import { Box, Typography, TextField, Button } from "@mui/material";
-import React, { ChangeEvent, ChangeEventHandler, FC, FormEvent, FormEventHandler, useContext, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, FC, FormEvent, FormEventHandler, useContext, useEffect, useState } from "react";
 import ChefApiService from "@/services/api/ChefApiService";
 import Link from "next/link";
 import SnackBarContext from "@/utils/Context/SnackBarProvider";
 import { AuthContext } from "@/utils/Context/AuthProvider";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
+import withBeforeAuth from "@/services/HOC/beforeAuth";
+import LocalStorage from "@/services/storage/LocalStorage";
 
 interface LoginProps {
   register_link: string;
@@ -24,7 +26,12 @@ const LoginComponent: FC<LoginProps> = ({ register_link }) => {
   const handlePasswordChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPassword(event.target.value);
   };
-
+  useEffect(() => {
+    const user = LocalStorage.getUser();
+    if (user) {
+      router.replace("/");
+    }
+  }, []);
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     ChefApiService.ChefLogin(email, password, showSnackbar).then((user) => {

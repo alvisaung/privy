@@ -51,6 +51,7 @@ const RegisterComponent = ({ login_link }: RegisterProps) => {
           borderRadius: "10px",
           padding: { xs: 2, sm: 3 },
           margin: "auto",
+          mt: { xs: 2, sm: "auto" },
           width: { xs: "90%", md: "50%" },
         }}
       >
@@ -91,7 +92,7 @@ const RegisterComponent = ({ login_link }: RegisterProps) => {
           </Button>
         </form>
         <Typography mt={2}>
-          {`Don't have account yet? `}
+          {`Already have an account? `}
           <Link href={login_link}>Log In</Link>
         </Typography>
       </Box>
