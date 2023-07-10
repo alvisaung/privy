@@ -9,9 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { AuthContext } from "@/utils/Context/AuthProvider";
 import useSwr from "swr";
-import ChefApiService from "@/services/api/ChefApiService";
-import Hp from "@/services/Hp";
-import { BeforeAuthRoute } from "@/services/storage/data";
 
 const NavBar = () => {
   const [loginAnchorEl, setLoginAnchorEl] = useState<HTMLElement | null>(null);
@@ -54,10 +51,8 @@ const NavBar = () => {
   ];
 
   const menuItemsBeforeAuth = [
-    { title: "Menu", url: "/" },
-    { title: "Contact Us", url: "contact-us" },
-    { title: "My Account", url: "/chef/" },
-    { title: "Log Out", url: "", hide: true },
+    { title: "Login", url: handleLoginOpen },
+    { title: "Register", url: "/" },
   ];
 
   const handleDrawerToggle = () => {
@@ -109,17 +104,28 @@ const NavBar = () => {
           <IconButton onClick={handleDrawerToggle}>
             <MenuIcon />
           </IconButton>
+
           <Drawer anchor="right" variant="temporary" open={isDrawerOpen} onClose={handleDrawerToggle}>
             <List>
               <ListItem onClick={handleDrawerToggle} sx={{ justifyContent: "end" }} dense>
                 <CloseIcon />
               </ListItem>
-              {menuItemsAuth.map((item, index) => (
-                <ListItem key={index}>
-                  {/* <List>{item.icon}</ListItemIcon> */}
-                  <ListItemText primary={item.title} />
-                </ListItem>
-              ))}
+              {user ? (
+                menuItemsAuth.map((item, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={item.title} onClick={() => jumpPage(item.url)} />
+                  </ListItem>
+                ))
+              ) : (
+                <>
+                  <ListItem>
+                    <ListItemText primary={"Login"} onClick={handleLoginOpen} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={"Register"} />
+                  </ListItem>
+                </>
+              )}
             </List>
           </Drawer>
         </Hidden>

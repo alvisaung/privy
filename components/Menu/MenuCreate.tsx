@@ -132,12 +132,12 @@ const MenuCreate: FC<MenuCreateProps> = ({ edit, editFormData }) => {
 
   return (
     <div>
-      <Card sx={{ width: { xs: "90%", sm: "80%" }, m: "auto", mt: 2 }}>
-        <CardContent>
+      <Card sx={{ width: { xs: "95%", sm: "80%" }, m: "auto", mt: 2 }}>
+        <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
           <Typography variant="h1" sx={{ mb: 4 }} textAlign={"center"}>
             {edit ? "Edit Menu" : "Create Menu"}
           </Typography>
-          <Stepper alternativeLabel={true} activeStep={activeStep} sx={{ mb: 4, maxWidth: "none" }}>
+          <Stepper alternativeLabel={true} activeStep={activeStep} sx={{ mb: 4 }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
