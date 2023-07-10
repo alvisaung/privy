@@ -20,14 +20,18 @@ ChefApi.interceptors.request.use(
   }
 );
 ChefApi.interceptors.response.use(
-  (response) => {
+  async (response) => {
     const { data } = response;
     console.log(data);
     return data;
   },
-  function (error) {
+  async (error) => {
     const { response } = error;
     if (response?.status == 401) {
+      // setTimeout(() => {
+      // window.location.href = "/chef/login";
+      // useRouter().push("/chef/login");
+      // }, 500);
       Router.push("/chef/login");
     }
     return Boolean(response) ? response.data : error;

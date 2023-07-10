@@ -1,12 +1,17 @@
 import ChefApiService from "@/services/api/ChefApiService";
 import { ChefUser, User } from "@/services/types/general";
 import { AuthContext } from "@/utils/Context/AuthProvider";
+import SnackBarContext from "@/utils/Context/SnackBarProvider";
 import { Avatar, Button, Container, Input, TextField, Typography } from "@mui/material";
+import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { FC, useContext, useEffect, useState } from "react";
 
-const Edit: FC = () => {
+interface Pro {
+  profile: ChefUser;
+}
+const Edit: FC<Pro> = ({ profile }) => {
   const [profileData, setProfileData] = useState<ChefUser>({
     profile_url: "",
     name: "",
@@ -15,9 +20,19 @@ const Edit: FC = () => {
     about_me: "",
   });
 
-  const router = useRouter();
+  const { showSnackbar } = useContext(SnackBarContext);
+
+  // const router = useRouter();
 
   const { user } = useContext(AuthContext);
+  useEffect(() => {
+    getProfile();
+  }, []);
+  const getProfile = async () => {
+    let res = await ChefApiService.GetProfile();
+    console.log(res);
+    setProfileData(res);
+  };
 
   useEffect(() => {
     if (user) {
@@ -39,6 +54,7 @@ const Edit: FC = () => {
     // Handle form submission
     const data = ChefApiService.EditProfile(profileData);
     if (!data) return;
+    showSnackbar("Profile Upload Success.");
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,9 +85,9 @@ const Edit: FC = () => {
             </Avatar>
           </label>
           <TextField required name="name" label="Restaurant Name" value={profileData.name} onChange={handleInputChange} fullWidth margin="normal" />
-          <TextField name="address" label="Address" value={profileData.address} onChange={handleInputChange} fullWidth margin="normal" />
-          <TextField required name="contact" label="Contact" value={profileData.phone} onChange={handleInputChange} fullWidth margin="normal" />
-          <TextField required name="about_me" label="About my restaurant" value={profileData.about_me} onChange={handleInputChange} fullWidth margin="normal" multiline rows={4} />
+          <TextField name="address" label="Address" value={profileData.address ?? ""} onChange={handleInputChange} fullWidth margin="normal" />
+          <TextField required name="phone" label="Phone" value={profileData.phone ?? ""} onChange={handleInputChange} fullWidth margin="normal" />
+          <TextField required name="about_me" label="About my restaurant" value={profileData.about_me ?? ""} onChange={handleInputChange} fullWidth margin="normal" multiline rows={4} />
           <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
             <Typography>Save Changes</Typography>
           </Button>
