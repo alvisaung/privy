@@ -45,7 +45,7 @@ const MenuCreate: FC<MenuCreateProps> = ({ edit, editFormData }) => {
     let menu_pics = [...menuForm.menu_pics];
     menu_pics = await Promise.all(
       menu_pics.map(async (menu) => {
-        const url = await ChefApiService.UploadImg(menu.file, showSnackbar);
+        const url = menu.file ? await ChefApiService.UploadImg(menu.file, showSnackbar) : menu.url;
         return { ...menu, url };
       })
     );
