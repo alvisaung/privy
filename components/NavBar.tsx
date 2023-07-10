@@ -44,9 +44,9 @@ const NavBar = () => {
   };
 
   const menuItemsAuth = [
-    { title: "Menu", url: "/" },
+    { title: "Home", url: "/" },
     { title: "Contact Us", url: "contact-us" },
-    { title: "My Account", url: "/chef/" },
+    { title: "Account", url: "/chef/" },
     { title: "Log Out", url: "", hide: true },
   ];
 
