@@ -3,7 +3,6 @@ import { ChefUser, User } from "@/services/types/general";
 import { AuthContext } from "@/utils/Context/AuthProvider";
 import SnackBarContext from "@/utils/Context/SnackBarProvider";
 import { Avatar, Button, Container, Input, TextField, Typography } from "@mui/material";
-import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { FC, useContext, useEffect, useState } from "react";

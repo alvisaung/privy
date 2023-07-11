@@ -6,7 +6,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ChefApiService from "@/services/api/ChefApiService";
 import SnackBarContext from "@/utils/Context/SnackBarProvider";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { AuthContext } from "@/utils/Context/AuthProvider";
 
 interface RegisterProps {
@@ -56,7 +55,7 @@ const RegisterComponent = ({ login_link }: RegisterProps) => {
         }}
       >
         <form onSubmit={handleRegister} style={{ display: "flex", flexDirection: "column" }}>
-          <Image src="/imgs/logo.png" width={100} height={100} alt="Logo" style={{ margin: "auto" }} />
+          <img src="/imgs/logo.png" width={100} height={100} alt="Logo" style={{ margin: "auto" }} />
 
           <Typography variant="h2" gutterBottom sx={{ mt: 2 }}>
             Register

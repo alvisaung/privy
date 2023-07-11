@@ -1,16 +1,30 @@
 import ChefApiService from "@/services/api/ChefApiService";
-import { GetServerSidePropsContext } from "next";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import MenuCreate from "@/components/Menu/MenuCreate";
 import { MenuData } from "@/services/types/menu.type";
 import { MenuFormProvider } from "@/utils/Context/MenuProvider";
+import { useRouter } from "next/router";
 
 interface EditProps {
   menu: MenuData;
 }
 
-const edit: FC<EditProps> = ({ menu }) => {
+const Edit: FC<EditProps> = () => {
+  const [menu, setMenu] = useState<MenuData | undefined>(undefined);
+
+  useEffect(() => {
+    onStart();
+  }, []);
+
+  const router = useRouter();
+
+  const onStart = async () => {
+    const { slug } = router.query;
+
+    let res = await ChefApiService.GetMenuDetail(slug);
+    setMenu(res);
+  };
   return (
     <div>
       <Head>
@@ -23,12 +37,4 @@ const edit: FC<EditProps> = ({ menu }) => {
   );
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext<{ slug: string }>) => {
-  const { params } = context;
-
-  const slug = params?.slug;
-  let res = await ChefApiService.GetMenuDetail(slug);
-
-  return { props: { menu: res } };
-};
-export default edit;
+export default Edit;

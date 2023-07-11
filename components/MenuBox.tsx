@@ -1,6 +1,5 @@
 import { Add } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
-import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import ImgSample from "@/public/imgs/dish.jpg";
@@ -38,7 +37,7 @@ const MenuBox: FC<MenuBoxProps> = ({ menu, type }) => {
         </>
       ) : menu ? (
         <>
-          <Image src={menu.img} width={0} height={0} sizes="100vw" alt={menu.name} style={{ width: "100%", height: "auto" }} />
+          <img src={menu.img} width={0} height={0} alt={menu.name} style={{ width: "100%", height: "auto" }} />
           <Box>
             <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
               <Typography variant="h4">{menu.name}</Typography>

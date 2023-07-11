@@ -1,5 +1,4 @@
-import { GetServerSidePropsContext } from "next";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, List, ListItem, ListItemText, Rating, Stack, Typography } from "@mui/material";
 
 import "swiper/swiper.css";
@@ -13,8 +12,44 @@ import { MenuData, Time } from "@/services/types/menu.type";
 import { ReviewInterface } from "@/services/types/review.type";
 import Hp from "@/services/Hp";
 
-const MenuDetail: FC<PageProps> = ({ slug, menu, reviews }) => {
+interface PageProps {
+  slug: string;
+  menu: MenuData | null;
+  reviews: ReviewInterface[] | [];
+}
+
+const MenuDetail: FC = () => {
+  const [menu, setMenu] = useState<MenuData | null>(null);
+  const [slug, setSlug] = useState<string>("");
+  const [reviews, setReview] = useState<ReviewInterface[] | []>("");
+
   const router = useRouter();
+  useEffect(() => {
+    onStart();
+  }, []);
+  const onStart = async () => {
+    const { slug } = router.query;
+    const _slug = slug ?? "";
+    let res = await ChefApiService.GetMenuDetail(slug);
+
+    const reviews = [
+      {
+        name: "John Doe",
+        time: "3 days ago",
+        rating: 4,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dui at velit consequat blandit. Nullam vel ornare velit.",
+      },
+      {
+        name: "Jane Smith",
+        time: "1 week ago",
+        rating: 4,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dui at velit consequat blandit. Nullam vel ornare velit.",
+      },
+    ];
+    setMenu(res);
+    setSlug("");
+    setReview(reviews);
+  };
 
   const renderAvailableHr = () => {
     if (!menu) return;
@@ -124,41 +159,6 @@ const MenuDetail: FC<PageProps> = ({ slug, menu, reviews }) => {
       </Grid>
     </div>
   );
-};
-
-interface PageProps {
-  slug: string;
-  menu: MenuData | null;
-  reviews: ReviewInterface[] | [];
-}
-
-export const getServerSideProps = async (context: GetServerSidePropsContext<{ slug: string }>) => {
-  const { params } = context;
-  const slug = params?.slug;
-  let res = await ChefApiService.GetMenuDetail(slug);
-
-  const reviews = [
-    {
-      name: "John Doe",
-      time: "3 days ago",
-      rating: 4,
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dui at velit consequat blandit. Nullam vel ornare velit.",
-    },
-    {
-      name: "Jane Smith",
-      time: "1 week ago",
-      rating: 4,
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dui at velit consequat blandit. Nullam vel ornare velit.",
-    },
-  ];
-
-  return {
-    props: {
-      slug,
-      menu: res,
-      reviews,
-    },
-  };
 };
 
 export default MenuDetail;
